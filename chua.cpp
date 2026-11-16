@@ -98,11 +98,11 @@ int main(){
             int color = 0;
 
             if (min_u1 < -B0 && max_u1 > B0) {
-                color = 3; // жёлтый
+                color = 3; // yellow
             } else if (min_u1 > 0 && max_u1 < B0) {
-                color = 1; // красный
+                color = 1; // red
             } else if (min_u1 > -B0 && max_u1 < 0) {
-                color = 2; // зелёный
+                color = 2; // green
             }
             file << u2 << ',' << i << ','
                 << min_u1 << ',' << max_u1 << ','
