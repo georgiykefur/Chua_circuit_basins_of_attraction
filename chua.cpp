@@ -71,10 +71,12 @@ void rk4_step(double* state){
 }
 
 int main(){
-    std::ofstream file("basins_40k_0.005.csv");
+    std::ofstream file("basins_8.csv");
     file << std::setprecision(15);
     file << "u2_start,i_start,min_u1,max_u1,color\n";
 
+    int tTest = max_rk4/2;
+    
     for(double u2 = u2_start; u2 <= u2_end; u2+=delta){
         for(double i=i_start;i<=i_end;i+=delta){
             state[0] = u2;
@@ -83,27 +85,52 @@ int main(){
             
             double min_u1 = 0;
             double max_u1 = 0;
+            int color = 0;
+
             for(int n=0;n<max_rk4;n++){
                 rk4_step(state);
-                if (n == max_rk4 / 2) {
+
+                if (n == tTest) {
                     min_u1 = state[1];
                     max_u1 = state[1];
                 }
 
-                if (n >= max_rk4 / 2) {
+                if (n >= tTest) {
                     if (state[1] < min_u1) min_u1 = state[1];
                     if (state[1] > max_u1) max_u1 = state[1];
                 }
-            }
-            int color = 0;
+                
+                if (std::abs(state[1] > uMax)){
+                    color = 3;
+                    break;
+                }
 
-            if (min_u1 < -B0 && max_u1 > B0) {
-                color = 3; // yellow
-            } else if (min_u1 > 0 && max_u1 < B0) {
-                color = 1; // red
-            } else if (min_u1 > -B0 && max_u1 < 0) {
-                color = 2; // green
+                if (n > tTest) {
+                    double _u1 = state[1];
+                    double _u2 = state[0];
+                    double _i = state[2];
+
+                    // red
+                    if (_u1 > u1Min && _u1 < u1Max && _u2 > u2Min && _u2 < u2Max && _i > iMin && _i < iMax) {
+                        color = 1; 
+                        break; 
+                    }
+                    
+                    // green
+                    if (_u1 < -u1Min && _u1 > -u1Max && _u2 > u2Min && _u2 < u2Max && _i > iMin && _i < iMax) {
+                        color = 2; 
+                        break; 
+                    }
+                }
             }
+
+            // if (min_u1 < -B0 && max_u1 > B0) {
+            //     color = 3; // yellow
+            // } else if (min_u1 > 0 && max_u1 < B0) {
+            //     color = 1; // red
+            // } else if (min_u1 > -B0 && max_u1 < 0) {
+            //     color = 2; // green
+            // }
             file << u2 << ',' << i << ','
                 << min_u1 << ',' << max_u1 << ','
                 << color << '\n';
