@@ -100,7 +100,7 @@ int main(){
                     if (state[1] > max_u1) max_u1 = state[1];
                 }
                 
-                if (std::abs(state[1] > uMax)){
+                if (std::abs(state[1]) > uMax){
                     color = 3;
                     break;
                 }
