@@ -6,16 +6,16 @@
 #include "consts.h"
 
 double g(double u1){
-    double m1 = preset[6];
-    double m0 = preset[5];
+    double m1 = -0.714;
+    double m0 = -1.143;
     return m2*u1 + 0.5*(m1-m0)*(std::abs(u1-Bp)-std::abs(u1+Bp)) + 0.5*(m2-m1)*(std::abs(u1-B0)-std::abs(u1+B0));
 }
 
 void chua_solver(double* state, double* model){
-    double G = preset[2];
-    double C1 = preset[0];
-    double C2 = preset[1];
-    double L = preset[4];
+    double G = 1;
+    double C1 = 0.104443;
+    double C2 = 0.85;
+    double L = 0.0625;
     double u2 = state[0];
     double u1 = state[1];
     double i = state[2];
