@@ -1,12 +1,8 @@
 #pragma once
 
-const int active_preset = 0;
-
 // PC3
-const double preset[][7] = {
-    // C1, C2, G, Rl, L, m0, m1
-    {0.104443, 0.85, 1, 0, 0.0625, -1.143, -0.714}
-};
+// C1, C2, G, Rl, L, m0, m1
+const double preset[7] = {0.104443, 0.85, 1, 0, 0.0625, -1.143, -0.714};
 
 double u2_start = -2;
 double u1_start = -2;
@@ -35,21 +31,28 @@ double state[3] = {u2_start, 3, i_start};
 // для зелёного
 // double state[3] = {-0.681819, 0.0, 0.709086};
 
-double delta = 0.005;
-
 // 7см
 double m2 = 7;
 // в вольтах
 double B0 = 14;
 double Bp = 1;
 
-// h в RK4
-double h = 0.01;
-int max_rk4 = 20000;
+// RK4
+double h_rk4 = 0.1;
+int max_rk4 = 1000;
 
-double uMax = 3.5;
+// dopri5
+double r_tol = 1e-6; 
+double a_tol = 1e-9;
+double h_start = 1.001;
+double t_end = 100;
 
-//red (green = - red)
+// step in map
+double delta = 0.01;
+
+// params
+double uMax = 5;
+
 double u1Min = 0.1;
 double u1Max = 5.0;
 

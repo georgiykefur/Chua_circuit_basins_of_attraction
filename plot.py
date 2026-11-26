@@ -2,7 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
-data = np.loadtxt("basins_8.csv", delimiter=",", skiprows=1)
+inputfile = "basins.csv"
+outputfile = "plots/" + inputfile + ".png"
+
+data = np.loadtxt(inputfile, delimiter=",", skiprows=1)
 
 u2 = np.unique(data[:, 0])
 i = np.unique(data[:, 1])
@@ -26,5 +29,5 @@ ax.set_box_aspect(1)
 plt.xlabel("u2(0)")
 plt.ylabel("i(0)")
 plt.title("PC3, u1(0) = 3")
-plt.savefig("plots/basins_40k_0.005_res3.png", dpi=200)
+plt.savefig(outputfile, dpi=200)
 plt.show()
