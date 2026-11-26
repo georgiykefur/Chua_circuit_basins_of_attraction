@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
-data = np.loadtxt("basins_40k_0.005.csv", delimiter=",", skiprows=1)
+data = np.loadtxt("basins_8.csv", delimiter=",", skiprows=1)
 
 u2 = np.unique(data[:, 0])
 i = np.unique(data[:, 1])
